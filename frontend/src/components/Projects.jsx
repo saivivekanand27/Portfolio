@@ -2,9 +2,9 @@ import useFadeIn from "../useFadeIn";
 import { Github, ExternalLink } from "lucide-react";
 
 // ✅ Import project images
-import urlImg from "../assets/vivek.jpeg";
-import boatImg from "../assets/vivek.jpeg";
-import agriImg from "../assets/vivek.jpeg";
+import urlImg from "../assets/URL.jpeg";
+import boatImg from "../assets/boat.jpeg";
+import agriImg from "../assets/rope.jpeg";
 
 const projects = [
   {
