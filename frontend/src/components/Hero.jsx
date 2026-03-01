@@ -1,6 +1,6 @@
 import useFadeIn from "../useFadeIn";
 import { Github, Linkedin, Mail, FileDown } from "lucide-react";
-import vivekImg from "../assets/vivek.jpeg";   // ✅ Correct image import
+import vivekImg from "../assets/vivek.jpeg";
 
 export default function Hero() {
   const ref = useFadeIn();
@@ -12,13 +12,13 @@ export default function Hero() {
       className="fade-section min-h-screen flex items-center px-6"
     >
       <div className="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-10 items-center">
-
+        
         {/* LEFT SIDE - TEXT */}
         <div className="text-center md:text-left">
-          
+
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             Hi, I'm{" "}
-            <span className="text-blue-600 dark:text-yellow-400">
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
               Vivek
             </span>
           </h1>
@@ -34,7 +34,7 @@ export default function Hero() {
               href="https://github.com/yourusername"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-blue-600 dark:hover:text-yellow-400 transition"
+              className="hover:text-cyan-400 transition duration-300"
             >
               <Github />
             </a>
@@ -43,14 +43,14 @@ export default function Hero() {
               href="https://linkedin.com/in/yourprofile"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-blue-600 dark:hover:text-yellow-400 transition"
+              className="hover:text-cyan-400 transition duration-300"
             >
               <Linkedin />
             </a>
 
             <a
               href="mailto:namsanivivekanand@gmail.com"
-              className="hover:text-blue-600 dark:hover:text-yellow-400 transition"
+              className="hover:text-cyan-400 transition duration-300"
             >
               <Mail />
             </a>
@@ -60,7 +60,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <a
               href="#projects"
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:scale-105 transition"
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg hover:scale-105 transition duration-300 shadow-lg"
             >
               View Projects
             </a>
@@ -68,7 +68,7 @@ export default function Hero() {
             <a
               href="/resume.pdf"
               download
-              className="px-6 py-3 border border-gray-400 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition flex items-center gap-2 justify-center"
+              className="px-6 py-3 border border-cyan-400 rounded-lg hover:bg-cyan-400/10 transition duration-300 flex items-center gap-2 justify-center"
             >
               <FileDown size={16} />
               Resume
@@ -81,7 +81,10 @@ export default function Hero() {
           <img
             src={vivekImg}
             alt="Vivek"
-            className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full border-4 border-blue-600 dark:border-yellow-400 shadow-lg"
+            className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full
+                       border-4 border-cyan-400
+                       shadow-[0_0_40px_rgba(0,255,255,0.4)]
+                       hover:scale-105 transition duration-500"
           />
         </div>
 
