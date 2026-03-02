@@ -12,7 +12,7 @@ export default function Contact() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState(null); // success | error
+  const [status, setStatus] = useState(null); // "success" | "error"
 
   const handleChange = (e) => {
     setFormData({
@@ -23,7 +23,6 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     setStatus(null);
 
@@ -40,11 +39,7 @@ export default function Contact() {
 
       if (data.success) {
         setStatus("success");
-        setFormData({
-          name: "",
-          email: "",
-          message: "",
-        });
+        setFormData({ name: "", email: "", message: "" });
       } else {
         setStatus("error");
       }
@@ -60,24 +55,22 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="fade-section py-24 px-6"
+      className="py-24 px-6 bg-transparent"
     >
       <div className="max-w-5xl mx-auto">
 
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          Get in{" "}
-          <span className="bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent">
-            Touch
-          </span>
+        {/* Section Title */}
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-cyan-400">
+          Get in Touch
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8">
 
           {/* Contact Form */}
-          <div className="bg-white/40 dark:bg-white/10 backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-6 rounded-xl shadow-lg">
-
-            <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <Mail size={18} className="text-purple-500" />
+          <div className="bg-black/40 backdrop-blur-lg border border-cyan-500/20 p-6 rounded-2xl shadow-xl">
+            
+            <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-cyan-300">
+              <Mail size={18} />
               Send a Message
             </h3>
 
@@ -90,7 +83,7 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder="Your Name"
                 required
-                className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-3 rounded-md bg-gray-900 border border-gray-700 text-sm focus:outline-none focus:border-cyan-400 transition"
               />
 
               <input
@@ -100,7 +93,7 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder="Your Email"
                 required
-                className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-3 rounded-md bg-gray-900 border border-gray-700 text-sm focus:outline-none focus:border-cyan-400 transition"
               />
 
               <textarea
@@ -110,13 +103,13 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder="Your Message"
                 required
-                className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-sm focus:outline-none focus:border-purple-500"
+                className="w-full p-3 rounded-md bg-gray-900 border border-gray-700 text-sm focus:outline-none focus:border-cyan-400 transition"
               />
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 transition text-sm text-white font-medium disabled:opacity-60"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-md bg-cyan-500 hover:bg-cyan-600 transition text-sm text-black font-semibold disabled:opacity-60"
               >
                 {loading ? (
                   <>
@@ -131,46 +124,41 @@ export default function Contact() {
                 )}
               </button>
 
-              {/* Status Message */}
+              {/* Status Messages */}
               {status === "success" && (
-                <p className="text-green-600 text-sm text-center">
+                <p className="text-green-400 text-sm text-center">
                   Message sent successfully ✅
                 </p>
               )}
 
               {status === "error" && (
-                <p className="text-red-600 text-sm text-center">
+                <p className="text-red-400 text-sm text-center">
                   Something went wrong. Try again.
                 </p>
               )}
-
             </form>
           </div>
 
           {/* Contact Info */}
-          <div className="bg-white/40 dark:bg-white/10 backdrop-blur-lg border border-gray-200 dark:border-gray-700 p-6 rounded-xl shadow-lg">
-
-            <h3 className="text-xl font-semibold mb-6">
+          <div className="bg-black/40 backdrop-blur-lg border border-cyan-500/20 p-6 rounded-2xl shadow-xl">
+            
+            <h3 className="text-xl font-semibold mb-6 text-cyan-300">
               Contact Information
             </h3>
 
             <div className="space-y-6 text-sm">
 
               <div>
-                <p className="text-gray-500 dark:text-gray-400 mb-1">
-                  Email
-                </p>
-                <p className="text-purple-600 dark:text-purple-400">
+                <p className="text-gray-400 mb-1">Email</p>
+                <p className="text-cyan-400">
                   namsanivivekanand@gmail.com
                 </p>
               </div>
 
               <div>
-                <p className="text-gray-500 dark:text-gray-400 mb-1">
-                  Location
-                </p>
-                <p className="flex items-center gap-2">
-                  <MapPin size={16} className="text-purple-500" />
+                <p className="text-gray-400 mb-1">Location</p>
+                <p className="flex items-center gap-2 text-gray-300">
+                  <MapPin size={16} className="text-cyan-400" />
                   Hyderabad, India
                 </p>
               </div>
@@ -179,7 +167,7 @@ export default function Contact() {
                 onClick={() =>
                   window.scrollTo({ top: 0, behavior: "smooth" })
                 }
-                className="mt-4 px-4 py-2 text-sm rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-800 transition"
+                className="mt-4 px-4 py-2 text-sm rounded-md border border-gray-700 hover:border-cyan-400 hover:text-cyan-400 transition"
               >
                 Back to Top
               </button>

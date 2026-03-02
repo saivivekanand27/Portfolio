@@ -5,14 +5,14 @@ import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 export default function App() {
   const canvasRef = useRef(null);
   const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
-    if (!darkMode) return; // 🚫 Do not render stars in light mode
+    if (!darkMode) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -64,22 +64,12 @@ export default function App() {
   }, [darkMode]);
 
   return (
-    <div
-      className={`relative min-h-screen overflow-hidden transition-colors duration-500 ${
-        darkMode
-          ? "bg-black text-white"
-          : "bg-gradient-to-b from-blue-100 via-white to-blue-200 text-black"
-      }`}
-    >
-      {/* Canvas Background (only visible in dark mode) */}
+    <div className="relative min-h-screen overflow-hidden bg-[#0B0F1A] text-slate-200">
+
       {darkMode && (
-        <canvas
-          ref={canvasRef}
-          className="fixed inset-0 z-0"
-        />
+        <canvas ref={canvasRef} className="fixed inset-0 z-0" />
       )}
 
-      {/* Content */}
       <div className="relative z-10">
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Hero />
@@ -87,7 +77,7 @@ export default function App() {
         <Skills />
         <Projects />
         <Contact />
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );

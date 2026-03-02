@@ -4,6 +4,11 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Fade animation */
 .fade-section {
   opacity: 0;
   transform: translateY(40px);

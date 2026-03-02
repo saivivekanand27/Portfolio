@@ -22,17 +22,19 @@ export default function Navbar({ darkMode, setDarkMode }) {
   }, []);
 
   const linkStyle = (id) =>
-    `cursor-pointer transition-colors duration-300 ${
+    `cursor-pointer transition duration-300 ${
       active === id
-        ? "text-blue-600 dark:text-yellow-400"
-        : "hover:text-blue-600 dark:hover:text-yellow-400"
+        ? "text-cyan-400 drop-shadow-[0_0_8px_#22D3EE]"
+        : "hover:text-cyan-400"
     }`;
 
   return (
-    <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/30 dark:bg-black/40 border-b border-gray-300 dark:border-gray-700 transition-colors duration-500">
+    <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-black/40 border-b border-cyan-400/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
 
-        <div className="font-bold text-xl">Vivek</div>
+        <div className="font-bold text-xl text-cyan-400">
+          Vivek
+        </div>
 
         <div className="hidden md:flex items-center gap-6 text-sm font-medium">
           <a href="#home" className={linkStyle("home")}>Home</a>
@@ -44,19 +46,18 @@ export default function Navbar({ darkMode, setDarkMode }) {
           <a
             href="/resume.pdf"
             download
-            className="flex items-center gap-1 hover:text-green-500"
+            className="flex items-center gap-1 text-cyan-400 hover:text-purple-400 transition"
           >
             <FileDown size={16} /> Resume
           </a>
 
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:scale-110 transition"
+            className="p-2 rounded-full bg-cyan-500/20 hover:scale-110 transition"
           >
             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
           </button>
         </div>
-
       </div>
     </nav>
   );

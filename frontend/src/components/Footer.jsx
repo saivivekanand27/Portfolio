@@ -1,7 +1,11 @@
-export default function Footer() {
+import React from "react";
+
+const Footer = () => {
   return (
-    <footer className="text-center py-6 border-t border-gray-300 dark:border-gray-700">
-      © 2026 Vivek. All rights reserved.
+    <footer className="text-center py-6 border-t border-gray-800 text-gray-500">
+      © {new Date().getFullYear()} Vivek | Built with React & Tailwind
     </footer>
   );
-}
+};
+
+export default Footer;
