@@ -1,52 +1,108 @@
-import React from "react";
-// import { motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { Code2, Cpu, Rocket } from "lucide-react";
 
-const About = () => {
+const stats = [
+  { icon: Code2, value: "3+", label: "Projects Built", color: "from-cyan-400 to-blue-500" },
+  { icon: Cpu, value: "10+", label: "Technologies", color: "from-purple-400 to-pink-500" },
+  { icon: Rocket, value: "1+", label: "Years Experience", color: "from-amber-400 to-orange-500" },
+];
+
+export default function About() {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center justify-center px-6 py-20"
+      className="min-h-screen flex items-center justify-center px-6 py-24"
     >
-      <div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="max-w-4xl text-center"
-      >
-        <h2 className="text-4xl font-bold text-cyan-400 mb-6">
-          About Me
-        </h2>
+      <div className="max-w-6xl mx-auto w-full">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="section-heading text-3xl md:text-5xl mb-4">
+            About <span className="gradient-text">Me</span>
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full" />
+        </motion.div>
 
-        <p className="text-gray-300 leading-relaxed text-lg">
-          I am a passionate Full Stack Developer with strong foundations in
-          MERN stack development and embedded systems. I focus on building
-          scalable, real-world solutions that solve practical problems.
-        </p>
-
-        <p className="text-gray-400 mt-4 leading-relaxed">
-          I have developed hardware-based automation systems like a
-          Rope Guided Agriculture Bot and a Boat Safety Monitoring System,
-          along with full-stack applications such as a URL Shortener with
-          analytics tracking.
-        </p>
-
-        <p className="text-gray-400 mt-4 leading-relaxed">
-          My goal is to build intelligent, impactful software solutions and
-          continuously improve my problem-solving and system design skills.
-        </p>
-
-        <div className="mt-8">
-          <a
-            href="/resume.pdf"
-            download
-            className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full transition duration-300"
+        <div className="grid lg:grid-cols-5 gap-12 items-start">
+          {/* Text Column */}
+          <motion.div
+            className="lg:col-span-3 space-y-5"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            Download Resume
-          </a>
+            <p className="text-lg text-slate-300 leading-relaxed">
+              I am a passionate{" "}
+              <span className="text-cyan-400 font-medium">Full Stack Developer</span>{" "}
+              with strong foundations in MERN stack development and embedded
+              systems. I focus on building scalable, real-world solutions that
+              solve practical problems.
+            </p>
+
+            <p className="text-slate-400 leading-relaxed">
+              I have developed hardware-based automation systems like a{" "}
+              <span className="text-purple-400">Rope Guided Agriculture Bot</span>{" "}
+              and a{" "}
+              <span className="text-purple-400">Boat Safety Monitoring System</span>,
+              along with full-stack applications such as a URL Shortener with
+              analytics tracking.
+            </p>
+
+            <p className="text-slate-400 leading-relaxed">
+              My goal is to build intelligent, impactful software solutions and
+              continuously improve my problem-solving and system design skills.
+            </p>
+
+            <div className="pt-4">
+              <a
+                href="/resume.pdf"
+                download
+                className="shimmer-btn inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300"
+              >
+                Download Resume
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Stats Column */}
+          <motion.div
+            className="lg:col-span-2 grid gap-5"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {stats.map(({ icon: Icon, value, label, color }, i) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                className="glass rounded-2xl p-6 flex items-center gap-5 hover:border-cyan-400/20 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-300 group"
+              >
+                <div
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                >
+                  <Icon size={24} className="text-white" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold font-['Outfit'] text-white">
+                    {value}
+                  </p>
+                  <p className="text-sm text-slate-400">{label}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

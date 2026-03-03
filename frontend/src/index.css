@@ -1,21 +1,361 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap');
 
+/* ─── Design Tokens ─── */
+:root {
+  --bg-primary: #06080f;
+  --bg-secondary: #0c1020;
+  --bg-card: rgba(15, 20, 40, 0.6);
+  --accent-cyan: #22d3ee;
+  --accent-purple: #a855f7;
+  --accent-blue: #3b82f6;
+  --glow-cyan: 0 0 30px rgba(34, 211, 238, 0.4);
+  --glow-purple: 0 0 30px rgba(168, 85, 247, 0.4);
+  --glass-bg: rgba(15, 20, 40, 0.5);
+  --glass-border: rgba(34, 211, 238, 0.12);
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+}
+
+/* ─── Base ─── */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
 }
 
-/* Fade animation */
+::selection {
+  background: rgba(34, 211, 238, 0.3);
+  color: #fff;
+}
+
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(34, 211, 238, 0.25);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.5);
+}
+
+/* ─── Utility Classes ─── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-heading {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* ─── Animations ─── */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(34, 211, 238, 0.6);
+  }
+}
+
+@keyframes ring-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes bounce-down {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes cursor-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Fade Section (useFadeIn hook) ─── */
 .fade-section {
   opacity: 0;
   transform: translateY(40px);
-  transition: all 0.8s ease;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .fade-section.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ─── Custom Cursor ─── */
+.custom-cursor {
+  width: 12px;
+  height: 12px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  mix-blend-mode: difference;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
+}
+
+.custom-cursor.hovering {
+  transform: scale(2.5);
+  opacity: 0.7;
+}
+
+/* ─── Scroll Progress Bar ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
+/* ─── Swiper Custom Styles ─── */
+.projects-swiper .swiper-pagination-bullet {
+  background: var(--text-muted);
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s ease;
+}
+
+.projects-swiper .swiper-pagination-bullet-active {
+  background: var(--accent-cyan);
+  opacity: 1;
+  width: 28px;
+  border-radius: 5px;
+}
+
+.projects-swiper .swiper-button-prev,
+.projects-swiper .swiper-button-next {
+  color: var(--accent-cyan);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.projects-swiper .swiper-button-prev:hover,
+.projects-swiper .swiper-button-next:hover {
+  background: rgba(34, 211, 238, 0.15);
+  box-shadow: var(--glow-cyan);
+}
+
+.projects-swiper .swiper-button-prev::after,
+.projects-swiper .swiper-button-next::after {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ─── Floating Label Inputs ─── */
+.floating-input-group {
+  position: relative;
+}
+
+.floating-input-group input,
+.floating-input-group textarea {
+  width: 100%;
+  padding: 1rem 1rem 0.5rem 1rem;
+  background: rgba(15, 20, 40, 0.6);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.floating-input-group input:focus,
+.floating-input-group textarea:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+}
+
+.floating-input-group label {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.floating-input-group textarea~label {
+  top: 1rem;
+  transform: translateY(0);
+}
+
+.floating-input-group input:focus~label,
+.floating-input-group input:not(:placeholder-shown)~label {
+  top: 0.35rem;
+  transform: translateY(0);
+  font-size: 0.7rem;
+  color: var(--accent-cyan);
+}
+
+.floating-input-group textarea:focus~label,
+.floating-input-group textarea:not(:placeholder-shown)~label {
+  top: -0.5rem;
+  background: var(--bg-secondary);
+  padding: 0 6px;
+  font-size: 0.7rem;
+  color: var(--accent-cyan);
+}
+
+/* ─── Shimmer Button ─── */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -200%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent);
+  transition: none;
+}
+
+.shimmer-btn:hover::before {
+  animation: shimmer 1s ease forwards;
+}
+
+/* ─── Profile Ring ─── */
+.profile-ring {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-ring::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent-cyan),
+      var(--accent-purple),
+      var(--accent-blue),
+      var(--accent-cyan));
+  animation: ring-rotate 4s linear infinite;
+  z-index: -1;
+}
+
+.profile-ring::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  z-index: -1;
 }
