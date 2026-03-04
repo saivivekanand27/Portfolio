@@ -10,7 +10,7 @@ import Footer from "./components/Footer";
 export default function App() {
   const canvasRef = useRef(null);
   const cursorRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0)
 
   // ─── Starfield Canvas ───
   useEffect(() => {
@@ -65,44 +65,44 @@ export default function App() {
   }, []);
 
   // ─── Custom Cursor ───
-  useEffect(() => {
-    const cursor = cursorRef.current;
-    if (!cursor) return;
+  // useEffect(() => {
+  //   const cursor = cursorRef.current;
+  //   if (!cursor) return;
 
-    // Hide on touch devices
-    if ("ontouchstart" in window) {
-      cursor.style.display = "none";
-      return;
-    }
+  //   // Hide on touch devices
+  //   if ("ontouchstart" in window) {
+  //     cursor.style.display = "none";
+  //     return;
+  //   }
 
-    const moveCursor = (e) => {
-      cursor.style.left = e.clientX - 6 + "px";
-      cursor.style.top = e.clientY - 6 + "px";
-    };
+  //   const moveCursor = (e) => {
+  //     cursor.style.left = e.clientX - 6 + "px";
+  //     cursor.style.top = e.clientY - 6 + "px";
+  //   };
 
-    const addHover = () => cursor.classList.add("hovering");
-    const removeHover = () => cursor.classList.remove("hovering");
+  //   const addHover = () => cursor.classList.add("hovering");
+  //   const removeHover = () => cursor.classList.remove("hovering");
 
-    document.addEventListener("mousemove", moveCursor);
+  //   document.addEventListener("mousemove", moveCursor);
 
-    const attachHovers = () => {
-      document
-        .querySelectorAll("a, button, [role='button'], .swiper-button-prev, .swiper-button-next")
-        .forEach((el) => {
-          el.addEventListener("mouseenter", addHover);
-          el.addEventListener("mouseleave", removeHover);
-        });
-    };
+  //   const attachHovers = () => {
+  //     document
+  //       .querySelectorAll("a, button, [role='button'], .swiper-button-prev, .swiper-button-next")
+  //       .forEach((el) => {
+  //         el.addEventListener("mouseenter", addHover);
+  //         el.addEventListener("mouseleave", removeHover);
+  //       });
+  //   };
 
-    attachHovers();
-    const observer = new MutationObserver(attachHovers);
-    observer.observe(document.body, { childList: true, subtree: true });
+  //   attachHovers();
+  //   const observer = new MutationObserver(attachHovers);
+  //   observer.observe(document.body, { childList: true, subtree: true });
 
-    return () => {
-      document.removeEventListener("mousemove", moveCursor);
-      observer.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("mousemove", moveCursor);
+  //     observer.disconnect();
+  //   };
+  // }, []);
 
   // ─── Scroll Progress ───
   useEffect(() => {

@@ -2,9 +2,24 @@ import { motion } from "framer-motion";
 import { Code2, Cpu, Rocket } from "lucide-react";
 
 const stats = [
-  { icon: Code2, value: "3+", label: "Projects Built", color: "from-cyan-400 to-blue-500" },
-  { icon: Cpu, value: "10+", label: "Technologies", color: "from-purple-400 to-pink-500" },
-  { icon: Rocket, value: "1+", label: "Years Experience", color: "from-amber-400 to-orange-500" },
+  {
+    icon: Code2,
+    value: "3+",
+    label: "Projects Built",
+    color: "from-cyan-400 to-blue-500",
+  },
+  {
+    icon: Cpu,
+    value: "10+",
+    label: "Technologies",
+    color: "from-purple-400 to-pink-500",
+  },
+  {
+    icon: Rocket,
+    value: "1+",
+    label: "Years Experience",
+    color: "from-amber-400 to-orange-500",
+  },
 ];
 
 export default function About() {
@@ -38,38 +53,37 @@ export default function About() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="text-lg text-slate-300 leading-relaxed">
-              I am a passionate{" "}
-              <span className="text-cyan-400 font-medium">Full Stack Developer</span>{" "}
-              with strong foundations in MERN stack development and embedded
-              systems. I focus on building scalable, real-world solutions that
-              solve practical problems.
+              I’m a Full Stack Developer who enjoys building things that
+              actually work — not just look good. I started with embedded
+              systems and automation, which taught me how software interacts
+              with the real world.
             </p>
 
             <p className="text-slate-400 leading-relaxed">
-              I have developed hardware-based automation systems like a{" "}
-              <span className="text-purple-400">Rope Guided Agriculture Bot</span>{" "}
-              and a{" "}
-              <span className="text-purple-400">Boat Safety Monitoring System</span>,
-              along with full-stack applications such as a URL Shortener with
-              analytics tracking.
+              From developing a Rope Guided Agriculture Bot to creating a Boat
+              Safety Monitoring System, I’ve worked on projects where hardware
+              and logic come together to solve practical problems. Later, I
+              moved into full-stack development and built applications like a
+              URL shortener with analytics tracking.
             </p>
 
             <p className="text-slate-400 leading-relaxed">
-              My goal is to build intelligent, impactful software solutions and
-              continuously improve my problem-solving and system design skills.
+              I’m especially interested in system design, performance
+              optimization, and building scalable applications. My goal is
+              simple — build solutions that are reliable, efficient, and
+              meaningful.
             </p>
 
-            <div className="pt-4">
+            {/* <div className="pt-4">
               <a
                 href="/resume.pdf"
                 download
-                className="shimmer-btn inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300"
+                className="shimmer-btn inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300"
               >
                 Download Resume
               </a>
-            </div>
+            </div> */}
           </motion.div>
-
           {/* Stats Column */}
           <motion.div
             className="lg:col-span-2 grid gap-5"
@@ -100,7 +114,8 @@ export default function About() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </motion.div>{" "}
+          {/* ← was missing */}
         </div>
       </div>
     </section>

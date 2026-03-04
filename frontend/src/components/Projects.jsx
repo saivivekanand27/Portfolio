@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // ✅ FIXED
 import { Github, ExternalLink } from "lucide-react";
 
 import ropeBotImg from "../assets/rope.jpeg";
@@ -7,10 +7,10 @@ import urlImg from "../assets/URL.jpeg";
 
 const projects = [
   {
-    title: "URL Shortener",
+    title: "QuickShark",
     desc: "A full-stack URL shortening app that generates short links, tracks click analytics, and ensures secure redirection.",
     tech: ["HTML", "CSS", "EJS", "Node.js", "Express", "MongoDB"],
-    github: "https://github.com/yourusername/url-shortener",
+    github: "https://github.com/saivivekanand27/QuickShrink",
     demo: "#",
     image: urlImg,
   },
@@ -36,6 +36,7 @@ export default function Projects() {
   return (
     <section id="projects" className="py-24 px-6">
       <div className="max-w-7xl mx-auto">
+
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -50,7 +51,7 @@ export default function Projects() {
           <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full" />
         </motion.div>
 
-        {/* 3-Column Grid */}
+        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
@@ -61,7 +62,7 @@ export default function Projects() {
               transition={{ duration: 0.5, delay: index * 0.12 }}
               className="glass rounded-2xl overflow-hidden group hover:border-cyan-400/20 transition-all duration-500"
             >
-              {/* Image + Overlay */}
+              {/* Image */}
               <div className="relative overflow-hidden">
                 <img
                   src={project.image}
@@ -75,7 +76,7 @@ export default function Projects() {
                 </div>
               </div>
 
-              {/* Card Content */}
+              {/* Content */}
               <div className="p-6">
                 <h3 className="text-xl font-bold font-['Outfit'] mb-3 group-hover:text-cyan-400 transition-colors duration-300">
                   {project.title}
@@ -83,18 +84,32 @@ export default function Projects() {
 
                 <div className="flex flex-wrap gap-2 mb-5">
                   {project.tech.map((tech, i) => (
-                    <span key={i} className="px-3 py-1 text-xs rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20">
+                    <span
+                      key={i}
+                      className="px-3 py-1 text-xs rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20"
+                    >
                       {tech}
                     </span>
                   ))}
                 </div>
 
                 <div className="flex gap-4">
-                  <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors duration-300">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors duration-300"
+                  >
                     <Github size={16} /> Source Code
                   </a>
+
                   {project.demo && (
-                    <a href={project.demo} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors duration-300">
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors duration-300"
+                    >
                       <ExternalLink size={16} /> Live Demo
                     </a>
                   )}
