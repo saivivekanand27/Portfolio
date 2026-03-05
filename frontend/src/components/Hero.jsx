@@ -139,7 +139,7 @@ export default function Hero() {
               },
               {
                 icon: Linkedin,
-                href: "https://linkedin.com/in/vivek",
+                href: "https://www.linkedin.com/in/vivek-namsani-67250a2ba/",
                 label: "LinkedIn",
               },
               {

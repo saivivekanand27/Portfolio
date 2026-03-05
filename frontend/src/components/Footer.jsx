@@ -21,7 +21,7 @@ export default function Footer() {
         <div className="flex justify-center gap-3 mb-8">
           {[
             { icon: Github, href: "https://github.com/saivivekanand27" },
-            { icon: Linkedin, href: "https://linkedin.com/in/vivek" },
+            { icon: Linkedin, href: "https://www.linkedin.com/in/vivek-namsani-67250a2ba/" },
             { icon: Mail, href: "mailto:namsanivivekanand@gmail.com" },
           ].map(({ icon: Icon, href }, i) => (
             <a key={i} href={href} target={href.startsWith("mailto") ? undefined : "_blank"} rel="noreferrer" className="p-2.5 rounded-xl bg-white/5 border border-white/5 text-slate-500 hover:text-cyan-400 hover:border-cyan-400/20 transition-all duration-300">
