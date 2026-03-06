@@ -5,7 +5,7 @@ import vivekImg from "../assets/vivek.jpeg";
 
 const roles = [
   "Full Stack Developer",
-  "Embedded Systems Engineer",
+  "Robotics Embedded Systems ",
   "Problem Solver",
   "Tech Enthusiast",
 ];
