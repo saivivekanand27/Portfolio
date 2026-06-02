@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send, Loader2, Github, Linkedin } from "lucide-react";
+import {
+  Mail,
+  Send,
+  Loader2,
+  Github,
+  Linkedin,
+} from "lucide-react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -32,7 +38,7 @@ export default function Contact() {
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/contact", // ✅ HARDCODED BACKEND URL
+        `${import.meta.env.VITE_API_URL}/api/contact`,
         {
           method: "POST",
           headers: {
@@ -50,7 +56,11 @@ export default function Contact() {
 
       if (data.success) {
         setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
       } else {
         setStatus("error");
       }
@@ -93,13 +103,16 @@ export default function Contact() {
           <h2 className="section-heading text-3xl md:text-5xl mb-4">
             Get in <span className="gradient-text">Touch</span>
           </h2>
+
           <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full" />
+
           <p className="text-slate-400 mt-4">
             Let's build something amazing together
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-8">
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -175,6 +188,7 @@ export default function Contact() {
             </form>
           </motion.div>
 
+          {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -198,6 +212,7 @@ export default function Contact() {
 
             <div className="glass rounded-2xl p-6">
               <p className="text-sm text-slate-500 mb-4">Find me on</p>
+
               <div className="flex gap-3">
                 {socials.map(({ icon: Icon, href, label }) => (
                   <a
