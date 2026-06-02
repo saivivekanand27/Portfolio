@@ -1,18 +1,14 @@
 import Contact from "../models/contact.js";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import fetch from "node-fetch";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendMessage = async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
     console.log("New contact form submission");
-    console.log("EMAIL_USER exists:", !!process.env.EMAIL_USER);
-    console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
-    console.log(
-      "SAMBANOVA_API_KEY exists:",
-      !!process.env.SAMBANOVA_API_KEY
-    );
 
     // ===========================
     // SAVE TO MONGODB
@@ -64,43 +60,31 @@ Message: ${message}`,
 
       const aiData = await aiResponse.json();
 
-      console.log("SambaNova Response Received ✅");
-
       generatedReply =
         aiData?.choices?.[0]?.message?.content ||
         generatedReply;
+
+      console.log("SambaNova Response Received ✅");
     } catch (aiError) {
       console.error("SambaNova Error:", aiError);
     }
 
     // ===========================
-    // EMAIL CONFIG
-    // ===========================
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.verify();
-    console.log("SMTP Connected ✅");
-
-    // ===========================
     // EMAIL TO YOU
     // ===========================
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      subject: `🚀 New Message from ${name}`,
+    await resend.emails.send({
+      from: "Portfolio <onboarding@resend.dev>",
+      to: "namsanivivekanand@gmail.com",
+      subject: `🚀 New Portfolio Message from ${name}`,
       html: `
         <h2>New Portfolio Message</h2>
+
         <p><strong>Name:</strong> ${name}</p>
+
         <p><strong>Email:</strong> ${email}</p>
+
         <p><strong>Message:</strong></p>
+
         <p>${message}</p>
       `,
     });
@@ -108,20 +92,26 @@ Message: ${message}`,
     console.log("Admin Email Sent ✅");
 
     // ===========================
-    // AUTO REPLY
+    // AUTO REPLY TO USER
     // ===========================
-    await transporter.sendMail({
-      from: `"Vivek Portfolio" <${process.env.EMAIL_USER}>`,
+    await resend.emails.send({
+      from: "Vivek Portfolio <onboarding@resend.dev>",
       to: email,
       subject: "Thank You for Contacting Me 🙌",
       html: `
         <div style="font-family: Arial; padding:20px;">
           <h2>Hi ${name} 👋</h2>
+
           <p>${generatedReply}</p>
+
           <br/>
+
           <p>Best Regards,</p>
+
           <strong>Vivek Namsani</strong>
+
           <br/>
+
           Full Stack Developer
         </div>
       `,
