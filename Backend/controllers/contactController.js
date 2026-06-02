@@ -1,58 +1,97 @@
 import Contact from "../models/contact.js";
 import nodemailer from "nodemailer";
-import fetch from "node-fetch"; // install if not installed
+import fetch from "node-fetch";
 
 export const sendMessage = async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
-    // 1️⃣ Save to MongoDB
-    const newContact = new Contact({ name, email, message });
-    await newContact.save();
+    console.log("New contact form submission");
+    console.log("EMAIL_USER exists:", !!process.env.EMAIL_USER);
+    console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
+    console.log(
+      "SAMBANOVA_API_KEY exists:",
+      !!process.env.SAMBANOVA_API_KEY
+    );
 
     // ===========================
-    // 🤖 GENERATE AI RESPONSE
+    // SAVE TO MONGODB
     // ===========================
-    const aiResponse = await fetch("https://api.sambanova.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.SAMBANOVA_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "Meta-Llama-3-8B-Instruct",
-        messages: [
-          {
-            role: "system",
-            content: "You are Vivek, a professional Full Stack Developer replying to portfolio messages politely and professionally."
-          },
-          {
-            role: "user",
-            content: `Reply to this message professionally:\n\nName: ${name}\nMessage: ${message}`
-          }
-        ],
-        temperature: 0.7,
-      }),
+    const newContact = new Contact({
+      name,
+      email,
+      message,
     });
 
-    const aiData = await aiResponse.json();
+    await newContact.save();
+    console.log("Contact saved to MongoDB ✅");
 
-    const generatedReply =
-      aiData?.choices?.[0]?.message?.content ||
+    // ===========================
+    // AI RESPONSE
+    // ===========================
+    let generatedReply =
       "Thank you for reaching out. I will get back to you soon.";
 
+    try {
+      const aiResponse = await fetch(
+        "https://api.sambanova.ai/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.SAMBANOVA_API_KEY}`,
+          },
+          body: JSON.stringify({
+            model: "Meta-Llama-3-8B-Instruct",
+            messages: [
+              {
+                role: "system",
+                content:
+                  "You are Vivek, a professional Full Stack Developer replying to portfolio messages politely and professionally.",
+              },
+              {
+                role: "user",
+                content: `Reply to this message professionally:
+
+Name: ${name}
+Message: ${message}`,
+              },
+            ],
+            temperature: 0.7,
+          }),
+        }
+      );
+
+      const aiData = await aiResponse.json();
+
+      console.log("SambaNova Response Received ✅");
+
+      generatedReply =
+        aiData?.choices?.[0]?.message?.content ||
+        generatedReply;
+    } catch (aiError) {
+      console.error("SambaNova Error:", aiError);
+    }
+
     // ===========================
-    // 📧 EMAIL CONFIG
+    // EMAIL CONFIG
     // ===========================
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
 
-    // 📩 EMAIL TO YOU
+    await transporter.verify();
+    console.log("SMTP Connected ✅");
+
+    // ===========================
+    // EMAIL TO YOU
+    // ===========================
     await transporter.sendMail({
       from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
@@ -66,7 +105,11 @@ export const sendMessage = async (req, res) => {
       `,
     });
 
-    // 📬 AI AUTO REPLY TO USER
+    console.log("Admin Email Sent ✅");
+
+    // ===========================
+    // AUTO REPLY
+    // ===========================
     await transporter.sendMail({
       from: `"Vivek Portfolio" <${process.env.EMAIL_USER}>`,
       to: email,
@@ -77,17 +120,26 @@ export const sendMessage = async (req, res) => {
           <p>${generatedReply}</p>
           <br/>
           <p>Best Regards,</p>
-          <strong>Vivek</strong>
+          <strong>Vivek Namsani</strong>
           <br/>
           Full Stack Developer
         </div>
       `,
     });
 
-    res.status(200).json({ success: true });
+    console.log("Auto Reply Sent ✅");
 
+    return res.status(200).json({
+      success: true,
+      message: "Message sent successfully",
+    });
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ success: false });
+    console.error("CONTACT FORM ERROR:");
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
 };
